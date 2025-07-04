@@ -10,6 +10,7 @@ const DashboardPage = () => {
   const [purchaseAmount, setPurchaseAmount] = useState("");
   const [logs, setLogs] = useState([]);
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -24,7 +25,7 @@ const DashboardPage = () => {
         indirect: userData.IndirectEarnings,
       });
 
-      const newSocket = io("http://localhost:5000");
+      const newSocket = io(`${apiUrl}`);
       setSocket(newSocket);
 
       return () => {
@@ -78,7 +79,7 @@ const DashboardPage = () => {
 
   const handleBuy = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/earning", {
+      const res = await fetch(`${apiUrl}/api/earning`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

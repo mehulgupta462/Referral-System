@@ -11,6 +11,7 @@ const RegisterPage = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,7 +23,7 @@ const RegisterPage = () => {
     setMessage("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/user/register", {
+      const res = await fetch(`${apiUrl}/api/user/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
